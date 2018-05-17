@@ -11,28 +11,17 @@ bot = telebot.TeleBot(constants.token)
 print(bot.get_me())
 # bot.send_message(103416615, "Your mom gay!")
 
-changeLogg = "1. Added your mum gay"
-YourMomGayArray = ["Ur mum gay",
-                    "Ur dad lesbian",
-                    "Ur brother a mother",
-                    "Ur sister a mister",
-                    "Ur granny tranny",
-                    "Ur grandap a tap",
-                    "Ur family tree lgbt",
-                    "Ur ancestors incestors",
-                    "Ur species feces",
-                    "Ur genus likes penis",
-                    "Ur family reunion homosexual communion"]
+
 
 def SearchForMomGay(msg):
     for i in range(11):
-        if re.search(YourMomGayArray[i], msg, re.IGNORECASE):
+        if re.search(constants.YourMomGayArray[i], msg, re.IGNORECASE):
             return True
 
 
 @bot.message_handler(commands=['changelog'])
 def handle_text(message):
-    bot.send_message(message.chat.id, changeLogg)
+    bot.send_message(message.chat.id, constants.changeLogg)
 
 
 @bot.message_handler(content_types=['text'])
@@ -41,11 +30,11 @@ def handle_text(message):
         bot.send_message(message.chat.id, "...")
     elif SearchForMomGay(message.text):
         for i in range(11):
-            if re.search(YourMomGayArray[i], message.text, re.IGNORECASE):
+            if re.search(constants.YourMomGayArray[i], message.text, re.IGNORECASE):
                 if i == 10:
                     bot.send_message(message.chat.id, "NO U!")
                 else:
-                    bot.send_message(message.chat.id, YourMomGayArray[i + 1])
+                    bot.send_message(message.chat.id, constants.YourMomGayArray[i + 1])
     elif re.search("u gay", message.text, re.IGNORECASE):
         bot.send_message(message.chat.id, "NO U!")
     else:
