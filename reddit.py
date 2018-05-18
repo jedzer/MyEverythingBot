@@ -1,4 +1,4 @@
-import urllib.request
+import requests
 import json
 import random
 
@@ -8,23 +8,20 @@ memeSubbreddits = [
         "Dark_memes",
         "PewdiepieSubmissions",
         "dank_memes_archive",
-        "Spicy_Memes",
         "ProgrammerHumor",
         "tumblr",
         "dank_meme"]
 
 
 def meme():
-    memeToChoose = random.randint(0, len(memeSubbreddits) - 1)
-    url = "https://www.reddit.com/r/" + memeSubbreddits[memeToChoose] + ".json?limit=1"
+    memeSourceToChoose = random.randint(0, len(memeSubbreddits) - 1)
+    url = "https://www.reddit.com/r/" + memeSubbreddits[memeSourceToChoose ] + ".json"
+    r = requests.get(url, headers={'User-agent': 'your bot 0.1'})
+    data = r.json()
+    memeToChoose = random.randint(1, data['data']['dist'] - 1)
+
+    print()
     print(url)
-    with urllib.request.urlopen(url) as url:
-        data = json.loads(url.read().decode())
-        print(data['data']['children'][0]['data']['url'])
-        return data['data']['children'][0]['data']['url']
-
-        # file = open("reddit.txt", "w")
-        # file.write(data)
-        # file.close()
-
-
+    print(data)
+    print(memeToChoose)
+    return data['data']['children'][memeToChoose]['data']['url']

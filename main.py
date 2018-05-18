@@ -2,6 +2,7 @@ import telebot
 import re
 import constants
 import random
+import time
 import reddit
 
 # import requests
@@ -22,7 +23,13 @@ def searchForMomGay(msg):
 
 @bot.message_handler(commands=['meme'])
 def handle_text(message):
-    bot.send_photo(message.chat.id, reddit.meme())
+    toSend = reddit.meme()
+    print(toSend)
+    while toSend == 'error':
+        time.sleep(5)
+        toSend = reddit.meme()
+    if toSend != 'error':
+        bot.send_photo(message.chat.id, toSend)
 
 
 @bot.message_handler(commands=['start'])
