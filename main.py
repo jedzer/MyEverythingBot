@@ -4,6 +4,7 @@ import constants
 import random
 import time
 import reddit
+import users
 
 # import requests
 # def sendMessage(id, text):
@@ -14,6 +15,8 @@ bot = telebot.TeleBot(constants.token)
 print(bot.get_me())
 # bot.send_message(103416615, "Your mom gay!")
 
+users = users.Users
+
 
 def searchForMomGay(msg):
     for i in range(11):
@@ -23,6 +26,7 @@ def searchForMomGay(msg):
 
 @bot.message_handler(commands=['meme'])
 def handle_text(message):
+    # users.setLastMessage(users, message.chat.id, message.text)
     toSend = reddit.meme()
     print(toSend)
     while toSend == 'error':
@@ -34,34 +38,40 @@ def handle_text(message):
 
 @bot.message_handler(commands=['reddit'])
 def handle_text(message):
-    bot.send_message(message.chat.id, "Enter subreddit")
+    users.setLastMessage(users, message.chat.id, message.text)
+    bot.set_update_listener('red')
+    bot.send_message(message.chat.id, "Enter sub-reddit:")
 
 
 @bot.message_handler(commands=['start'])
 def handle_text(message):
+    users.setLastMessage(users, message.chat.id, message.text)
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
     markup.row('/bsuirschedule')
     markup.row('/reddit', '/meme')
     markup.row('/flipcoin', '/help', '/stop')
     bot.send_message(message.chat.id, "Welcome!", reply_markup=markup)
 
-
-@bot.message_handler(commands=['bsuirschedule'])
-def handle_text(message):
-    markup = telebot.types.ReplyKeyboardMarkup(True, False)
-    markup.row('/currentschedule')
-    btnReturn = telebot.types.KeyboardButton('<< BACK', '/start')
-    markup.row(btnReturn, '/setschedule')
-    bot.send_message(message.chat.id, "BSUIR Schedule", reply_markup=markup)
+# TODO
+# @bot.message_handler(commands=['bsuirschedule'])
+# def handle_text(message):
+#     # users.setLastMessage(users, message.chat.id, message.text)
+#     markup = telebot.types.ReplyKeyboardMarkup(True, False)
+#     markup.row('/currentschedule')
+#     btnReturn = telebot.types.KeyboardButton('<< BACK', '/start')
+#     markup.row(btnReturn, '/setschedule')
+#     bot.send_message(message.chat.id, "BSUIR Schedule", reply_markup=markup)
 
 
 @bot.message_handler(commands=['changelog'])
 def handle_text(message):
+    users.setLastMessage(users, message.chat.id, message.text)
     bot.send_message(message.chat.id, constants.changeLogg)
 
 
 @bot.message_handler(commands=['flipcoin'])
 def handler(message):
+    users.setLastMessage(users, message.chat.id, message.text)
     so = random.randint(0, 1)
     if so == 0:
         bot.send_message(message.chat.id, constants.heads)
@@ -71,11 +81,13 @@ def handler(message):
 
 @bot.message_handler(commands=['help'])
 def handle_text(message):
+    users.setLastMessage(users, message.chat.id, message.text)
     bot.send_message(message.chat.id, constants.help)
 
 
 @bot.message_handler(commands=['stop'])
 def handle_text(message):
+    users.setLastMessage(users, message.chat.id, message.text)
     markup = telebot.types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, "Goodbye 😢. It was pleasure to help you.", reply_markup=markup)
 
@@ -93,10 +105,15 @@ def handle_text(message):
                     bot.send_message(message.chat.id, constants.YourMomGayArray[i + 1])
     elif re.search("u gay", message.text, re.IGNORECASE):
         bot.send_message(message.chat.id, "NO U!")
-    # elif
     else:
-        # print(bot.ca)
-        bot.send_message(message.chat.id, "Sorry🙈, no such command!")
+        lastMessage = users.lastMessage(self=users, userId=message.chat.id)
+        print(lastMessage)
+        if lastMessage == '/reddit':
+            pass
+            # post = reddit.reddit(message.text)
+            # bot.send_photo(message.chat.id, post[0], post[1] + "\n" + post[2])
+        else:
+            bot.send_message(message.chat.id, "Sorry🙈, no such command!")
 
 
-bot.polling(none_stop=True, interval=0)
+bot.polling(none_stop=True, interval=10)
