@@ -2,6 +2,7 @@ import telebot
 import re
 import constants
 import random
+import reddit
 
 # import requests
 # def sendMessage(id, text):
@@ -19,6 +20,11 @@ def searchForMomGay(msg):
             return True
 
 
+@bot.message_handler(commands=['meme'])
+def handle_text(message):
+    bot.send_photo(message.chat.id, reddit.meme())
+
+
 @bot.message_handler(commands=['start'])
 def handle_text(message):
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
@@ -26,6 +32,15 @@ def handle_text(message):
     markup.row('/reddit', '/meme')
     markup.row('/flipcoin', '/help', '/stop')
     bot.send_message(message.chat.id, "Welcome!", reply_markup=markup)
+
+
+@bot.message_handler(commands=['bsuirschedule'])
+def handle_text(message):
+    markup = telebot.types.ReplyKeyboardMarkup(True, False)
+    markup.row('/currentschedule')
+    btnReturn = telebot.types.KeyboardButton('<< BACK', '/start')
+    markup.row(btnReturn, '/setschedule')
+    bot.send_message(message.chat.id, "BSUIR Schedule", reply_markup=markup)
 
 
 @bot.message_handler(commands=['changelog'])
@@ -41,6 +56,7 @@ def handle_text(message):
     else:
         bot.send_message(message.chat.id, constants.tails)
 
+
 @bot.message_handler(commands=['help'])
 def handle_text(message):
     bot.send_message(message.chat.id, constants.help)
@@ -48,7 +64,8 @@ def handle_text(message):
 
 @bot.message_handler(commands=['stop'])
 def handle_text(message):
-    bot.send_message(message.chat.id, "Goodbye 😢. It was pleasure to help you.", reply_markup=None)
+    markup = telebot.types.ReplyKeyboardRemove()
+    bot.send_message(message.chat.id, "Goodbye 😢. It was pleasure to help you.", reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
