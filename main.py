@@ -31,7 +31,7 @@ def handle_text(message):
     if toSend != 'error':
         bot.send_photo(message.chat.id, toSend)
 
-
+#shit test
 @bot.message_handler(commands=['start'])
 def handle_text(message):
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
