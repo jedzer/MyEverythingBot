@@ -22,6 +22,15 @@ def meme():
 
     print()
     print(url)
-    print(data)
+    # print(data)
     print(memeToChoose)
     return data['data']['children'][memeToChoose]['data']['url']
+
+def reddit(subreddit):
+    url = "https://www.reddit.com/r/" + subreddit + ".json"
+    r = requests.get(url, headers={"User-agent": "your bot 0.1"})
+    data = r.json()
+    postToChoose = random.randint(1, data['data']['dist'] - 1)
+    print("----REDDIT---")
+    print(postToChoose)
+    print(url)

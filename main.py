@@ -31,7 +31,12 @@ def handle_text(message):
     if toSend != 'error':
         bot.send_photo(message.chat.id, toSend)
 
-#shit test
+
+@bot.message_handler(commands=['reddit'])
+def handle_text(message):
+    bot.send_message(message.chat.id, "Enter subreddit")
+
+
 @bot.message_handler(commands=['start'])
 def handle_text(message):
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
@@ -56,7 +61,7 @@ def handle_text(message):
 
 
 @bot.message_handler(commands=['flipcoin'])
-def handle_text(message):
+def handler(message):
     so = random.randint(0, 1)
     if so == 0:
         bot.send_message(message.chat.id, constants.heads)
@@ -88,7 +93,9 @@ def handle_text(message):
                     bot.send_message(message.chat.id, constants.YourMomGayArray[i + 1])
     elif re.search("u gay", message.text, re.IGNORECASE):
         bot.send_message(message.chat.id, "NO U!")
+    # elif
     else:
+        # print(bot.ca)
         bot.send_message(message.chat.id, "Sorry🙈, no such command!")
 
 
