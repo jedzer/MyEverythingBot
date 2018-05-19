@@ -1,4 +1,4 @@
-token = ""
+token = "516126122:AAEMbFmGjHN6JPjKu5AF_ByleHKmQaPkTY0"
 
 changeLogg = "1. Added your mum gay\n" + \
              "2. + change log\n" + \
