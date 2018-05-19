@@ -42,7 +42,10 @@ def getPostJSON(subreddit):
     data = r.json()
     if 'error' in data:
         return "ERROR"
-    postToChoose = random.randint(1, data['data']['dist'] - 1)
+    if data['data']['dist'] == 1:
+        return "ERROR"
+    else:
+        postToChoose = random.randint(1, data['data']['dist'] - 1)
     return data['data']['children'][postToChoose]
 
 
