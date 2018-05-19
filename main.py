@@ -7,18 +7,14 @@ import constants
 import random
 import time
 import reddit
-import lastUsersMessage
+import usersGroup
+import bsuirSchedule
 
-# import requests
-# def sendMessage(id, text):
-#     requests.request('GET', 'https://api.telegram.org/bot{0}/sendmessage?chat_id={1}&text={2}'.format(token, id, text))
-
-# sendMessage(224329635, "Fucker")
 bot = telebot.TeleBot(constants.token)
 print(bot.get_me())
-# bot.send_message(103416615, "Your mom gay!")
 
-lastUsersMessage = lastUsersMessage.Users
+
+# lastUsersMessages = lastUsersMessage.UsersShit()
 
 
 def searchForMomGay(msg):
@@ -29,9 +25,7 @@ def searchForMomGay(msg):
 
 @bot.message_handler(commands=['meme'])
 def handle_text(message):
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     toSend = reddit.meme()
-    print(toSend)
     while toSend == 'error':
         time.sleep(5)
         toSend = reddit.meme()
@@ -41,9 +35,7 @@ def handle_text(message):
 
 @bot.message_handler(commands=['kittens'])
 def handle_text(message):
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     toSend = reddit.cats()
-    print(toSend)
     while toSend == 'error':
         time.sleep(5)
         toSend = reddit.cats();
@@ -51,43 +43,72 @@ def handle_text(message):
         bot.send_photo(message.chat.id, toSend)
 
 
-
 @bot.message_handler(commands=['reddit'])
 def handle_text(message):
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
-    bot.set_update_listener('red')
-    bot.send_message(message.chat.id, "Enter sub-reddit:")
-
+    msg = bot.send_message(message.chat.id, "Enter sub-reddit:")
+    bot.register_next_step_handler(msg, showReddit)
+def showReddit(message):
+    post = reddit.reddit(message.text)
+    print(post)
+    if post == "ERROR":
+        bot.send_message(message.chat.id, "Can't reach that subReddit.")
+    elif post[0] == "NOTANIMAGE":
+        bot.send_message(message.chat.id, post[1] + "\n" + post[2])
+    else:
+        bot.send_photo(message.chat.id, post[0], post[1] + "\n" + post[2])
 
 @bot.message_handler(commands=['start'])
-def handle_text(message):
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
+def start(message):
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
-    markup.row('/kittens', '/bsuirschedule')
-    markup.row('/reddit', '/meme')
-    markup.row('/flipcoin', '/help', '/stop')
+    markup.row('/kittens', '/meme')
+    markup.row('/bsuirschedule')
+    markup.row('/reddit', '/flipcoin')
+    markup.row('/help', '/stop')
     bot.send_message(message.chat.id, "Welcome!", reply_markup=markup)
 
-# TODO
-# @bot.message_handler(commands=['bsuirschedule'])
-# def handle_text(message):
-#     # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
-#     markup = telebot.types.ReplyKeyboardMarkup(True, False)
-#     markup.row('/currentschedule')
-#     btnReturn = telebot.types.KeyboardButton('<< BACK', '/start')
-#     markup.row(btnReturn, '/setschedule')
-#     bot.send_message(message.chat.id, "BSUIR Schedule", reply_markup=markup)
+
+@bot.message_handler(commands=['bsuirschedule'])
+def handle_text(message):
+    markup = telebot.types.ReplyKeyboardMarkup(True, False)
+    markup.row('Current schedule')
+    markup.row('BACK ', 'Set schedule')
+    msg = bot.send_message(message.chat.id, "BSUIR Schedule", reply_markup=markup)
+    bot.register_next_step_handler(msg, scheduleNext)
+def scheduleNext(message):
+    if message.text == "Current schedule":
+        groupNumber = usersGroup.get(message.chat.id)
+        if groupNumber == None:
+            bot.send_message(message.chat.id, "Set the group first")
+        else:
+            msg = bot.send_message("Schedule: ")
+            bot.register_next_step_handler(msg, showSchedule)
+    elif message.text == "Set schedule":
+        msg = bot.send_message(message.chat.id, "Enter group:")
+        bot.register_next_step_handler(msg, setGroup)
+    elif message.text == "BACK":
+        msg = bot.send_message(message.chat.id, "Going back...")
+        bot.register_next_step_handler(msg, start)
+    else:
+        msg = bot.send_message(message.chat.id, "Wrong command")
+        bot.register_next_step_handler(msg, next)
+def setGroup(message):
+    usersGroup.set(message.chat.id, message.text)
+    msg = bot.send_message("Schedule: ")
+    bot.register_next_step_handler(msg, showSchedule)
+def showSchedule(message):
+    pass
+    # TODO
+    msg = bot.send_message(message.chat.id, "Going back...")
+    bot.register_next_step_handler(msg, start)
 
 
 @bot.message_handler(commands=['changelog'])
 def handle_text(message):
     bot.send_message(message.chat.id, constants.changeLogg)
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
 
 
 @bot.message_handler(commands=['flipcoin'])
 def handler(message):
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     so = random.randint(0, 1)
     if so == 0:
         bot.send_message(message.chat.id, constants.heads)
@@ -98,12 +119,10 @@ def handler(message):
 @bot.message_handler(commands=['help'])
 def handle_text(message):
     bot.send_message(message.chat.id, constants.help)
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
 
 
 @bot.message_handler(commands=['stop'])
 def handle_text(message):
-    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     markup = telebot.types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, "Goodbye 😢. It was pleasure to help you.", reply_markup=markup)
 
@@ -122,14 +141,7 @@ def handle_text(message):
     elif re.search("u gay", message.text, re.IGNORECASE):
         bot.send_message(message.chat.id, "NO U!")
     else:
-        # lastMessage = lastUsersMessage.lastMessage(self=lastUsersMessage, userId=message.chat.id)
-        # print(lastMessage)
-        if lastMessage == '/reddit':
-            pass
-            # post = reddit.reddit(message.text)
-            # bot.send_photo(message.chat.id, post[0], post[1] + "\n" + post[2])
-        else:
-            bot.send_message(message.chat.id, "Sorry🙈, no such command!")
+        bot.send_message(message.chat.id, "Sorry🙈, no such command!")
 
 
-bot.polling(none_stop=True, interval=15)
+bot.polling(none_stop=True, interval=0, timeout=5)
