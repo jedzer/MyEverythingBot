@@ -1,6 +1,7 @@
 import requests
 import json
-import random
+import random 
+
 
 memeSubbreddits = [
         "dankmemes",
