@@ -39,6 +39,19 @@ def handle_text(message):
         bot.send_photo(message.chat.id, toSend)
 
 
+@bot.message_handler(commands=['kittens'])
+def handle_text(message):
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
+    toSend = reddit.cats()
+    print(toSend)
+    while toSend == 'error':
+        time.sleep(5)
+        toSend = reddit.cats();
+    if toSend != 'error':
+        bot.send_photo(message.chat.id, toSend)
+
+
+
 @bot.message_handler(commands=['reddit'])
 def handle_text(message):
     # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
@@ -50,7 +63,7 @@ def handle_text(message):
 def handle_text(message):
     # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
-    markup.row('/bsuirschedule')
+    markup.row('/kittens', '/bsuirschedule')
     markup.row('/reddit', '/meme')
     markup.row('/flipcoin', '/help', '/stop')
     bot.send_message(message.chat.id, "Welcome!", reply_markup=markup)
@@ -119,4 +132,4 @@ def handle_text(message):
             bot.send_message(message.chat.id, "Sorry🙈, no such command!")
 
 
-bot.polling(none_stop=True, interval=10)
+bot.polling(none_stop=True, interval=15)

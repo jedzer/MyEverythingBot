@@ -1,9 +1,9 @@
 class Users:
-    users = {}
+    usersLastMessage = {}
 
     def lastMessage(self, userId):
-        toReturn = self.users[userId]
+        toReturn = self.usersLastMessage[userId]
         return toReturn
 
     def setLastMessage(self, userId, message):
-        self.users[userId] = message
+        self.usersLastMessage[userId] = message

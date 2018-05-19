@@ -12,6 +12,11 @@ memeSubbreddits = [
         "tumblr",
         "dank_meme"]
 
+catsSubReddits = [
+        "cats",
+        "Kitten",
+        "kittens"
+]
 
 def meme():
     memeSourceToChoose = random.randint(0, len(memeSubbreddits) - 1)
@@ -28,6 +33,25 @@ def meme():
 
     # print(data)
     return data['data']['children'][memeToChoose]['data']['url']
+
+
+def cats():
+    catsSourceToChoose = random.randint(0, len(catsSubReddits) - 1)
+    url = "https://www.reddit.com/r/" + catsSubReddits[catsSourceToChoose] + ".json"
+    r = requests.get(url, headers={'User-agent': 'your bot 0.1'})
+    data = r.json()
+    catToChoose = random.randint(1, data['data']['dist'] - 1)
+
+    print()
+    print("---KITTEN---")
+    print(catToChoose)
+    print(url)
+    print()
+
+    # print(data)
+    return data['data']['children'][catToChoose]['data']['url']
+
+
 
 def reddit(subreddit):
     url = "https://www.reddit.com/r/" + subreddit + ".json"
