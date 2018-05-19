@@ -1,10 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import telebot
 import re
 import constants
 import random
 import time
 import reddit
-import users
+import lastUsersMessage
 
 # import requests
 # def sendMessage(id, text):
@@ -15,7 +18,7 @@ bot = telebot.TeleBot(constants.token)
 print(bot.get_me())
 # bot.send_message(103416615, "Your mom gay!")
 
-users = users.Users
+lastUsersMessage = lastUsersMessage.Users
 
 
 def searchForMomGay(msg):
@@ -26,7 +29,7 @@ def searchForMomGay(msg):
 
 @bot.message_handler(commands=['meme'])
 def handle_text(message):
-    # users.setLastMessage(users, message.chat.id, message.text)
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     toSend = reddit.meme()
     print(toSend)
     while toSend == 'error':
@@ -38,14 +41,14 @@ def handle_text(message):
 
 @bot.message_handler(commands=['reddit'])
 def handle_text(message):
-    users.setLastMessage(users, message.chat.id, message.text)
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     bot.set_update_listener('red')
     bot.send_message(message.chat.id, "Enter sub-reddit:")
 
 
 @bot.message_handler(commands=['start'])
 def handle_text(message):
-    users.setLastMessage(users, message.chat.id, message.text)
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
     markup.row('/bsuirschedule')
     markup.row('/reddit', '/meme')
@@ -55,7 +58,7 @@ def handle_text(message):
 # TODO
 # @bot.message_handler(commands=['bsuirschedule'])
 # def handle_text(message):
-#     # users.setLastMessage(users, message.chat.id, message.text)
+#     # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
 #     markup = telebot.types.ReplyKeyboardMarkup(True, False)
 #     markup.row('/currentschedule')
 #     btnReturn = telebot.types.KeyboardButton('<< BACK', '/start')
@@ -65,13 +68,13 @@ def handle_text(message):
 
 @bot.message_handler(commands=['changelog'])
 def handle_text(message):
-    users.setLastMessage(users, message.chat.id, message.text)
     bot.send_message(message.chat.id, constants.changeLogg)
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
 
 
 @bot.message_handler(commands=['flipcoin'])
 def handler(message):
-    users.setLastMessage(users, message.chat.id, message.text)
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     so = random.randint(0, 1)
     if so == 0:
         bot.send_message(message.chat.id, constants.heads)
@@ -81,13 +84,13 @@ def handler(message):
 
 @bot.message_handler(commands=['help'])
 def handle_text(message):
-    users.setLastMessage(users, message.chat.id, message.text)
     bot.send_message(message.chat.id, constants.help)
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
 
 
 @bot.message_handler(commands=['stop'])
 def handle_text(message):
-    users.setLastMessage(users, message.chat.id, message.text)
+    # lastUsersMessage.setLastMessage(lastUsersMessage, message.chat.id, message.text)
     markup = telebot.types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, "Goodbye 😢. It was pleasure to help you.", reply_markup=markup)
 
@@ -106,8 +109,8 @@ def handle_text(message):
     elif re.search("u gay", message.text, re.IGNORECASE):
         bot.send_message(message.chat.id, "NO U!")
     else:
-        lastMessage = users.lastMessage(self=users, userId=message.chat.id)
-        print(lastMessage)
+        # lastMessage = lastUsersMessage.lastMessage(self=lastUsersMessage, userId=message.chat.id)
+        # print(lastMessage)
         if lastMessage == '/reddit':
             pass
             # post = reddit.reddit(message.text)
