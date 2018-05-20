@@ -14,6 +14,7 @@ bot = telebot.TeleBot(constants.token)
 print(bot.get_me())
 
 
+
 # lastUsersMessages = lastUsersMessage.UsersShit()
 
 
@@ -64,42 +65,40 @@ def start(message):
     markup.row('/bsuirschedule')
     markup.row('/reddit', '/flipcoin')
     markup.row('/help', '/stop')
-    bot.send_message(message.chat.id, "Welcome!", reply_markup=markup)
+    bot.send_message(message.chat.id, "MENU", reply_markup=markup)
 
 
 @bot.message_handler(commands=['bsuirschedule'])
-def handle_text(message):
+def schedule(message):
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
-    markup.row('Current schedule')
-    markup.row('BACK ', 'Set schedule')
+    markup.row('Current schedule', "This week")
+    markup.row('BACK ', 'Set group')
     msg = bot.send_message(message.chat.id, "BSUIR Schedule", reply_markup=markup)
     bot.register_next_step_handler(msg, scheduleNext)
+
 def scheduleNext(message):
     if message.text == "Current schedule":
-        groupNumber = usersGroup.get(message.chat.id)
-        if groupNumber == None:
-            bot.send_message(message.chat.id, "Set the group first")
-        else:
-            msg = bot.send_message("Schedule: ")
-            bot.register_next_step_handler(msg, showSchedule)
-    elif message.text == "Set schedule":
+        bot.send_message(message.chat.id, "Schedule: " + bsuirSchedule.getOneDaySchedule(message.chat.id))
+        bot.register_next_step_handler(message, scheduleNext)
+    elif message.text == "Set group":
         msg = bot.send_message(message.chat.id, "Enter group:")
         bot.register_next_step_handler(msg, setGroup)
+    elif message.text == "This week":
+        bot.send_message(message.chat.id, "This week:" + bsuirSchedule.getCurrentWeekSchedule(message.chat.id))
+        bot.register_next_step_handler(message, scheduleNext)
+
     elif message.text == "BACK":
         msg = bot.send_message(message.chat.id, "Going back...")
-        bot.register_next_step_handler(msg, start)
+        start(message)
     else:
         msg = bot.send_message(message.chat.id, "Wrong command")
-        bot.register_next_step_handler(msg, next)
+        bot.register_next_step_handler(msg, scheduleNext)
+
 def setGroup(message):
-    usersGroup.set(message.chat.id, message.text)
-    msg = bot.send_message("Schedule: ")
-    bot.register_next_step_handler(msg, showSchedule)
-def showSchedule(message):
-    pass
-    # TODO
-    msg = bot.send_message(message.chat.id, "Going back...")
-    bot.register_next_step_handler(msg, start)
+    bsuirSchedule.setUserGroupNumber(message.chat.id, message.text)
+    msg = bot.send_message(message.chat.id, "--SET--")
+    bot.register_next_step_handler(msg, scheduleNext)
+
 
 
 @bot.message_handler(commands=['changelog'])
