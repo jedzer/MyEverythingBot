@@ -95,8 +95,7 @@ def scheduleNext(message):
         bot.register_next_step_handler(msg, scheduleNext)
 
 def setGroup(message):
-    bsuirSchedule.setUserGroupNumber(message.chat.id, message.text)
-    msg = bot.send_message(message.chat.id, "--SET--")
+    msg = bot.send_message(message.chat.id, bsuirSchedule.setUserGroupNumber(message.chat.id, message.text))
     bot.register_next_step_handler(msg, scheduleNext)
 
 
