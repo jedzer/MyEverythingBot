@@ -87,7 +87,7 @@ def scheduleNext(message):
         bot.send_message(message.chat.id, "This week:" + bsuirSchedule.getCurrentWeekSchedule(message.chat.id))
         bot.register_next_step_handler(message, scheduleNext)
     elif message.text == "Exams":
-        bot.send_message(message.chat.id, "Exams:" + bsuirSchedule.getCurrentWeekSchedule(message.chat.id))
+        bot.send_message(message.chat.id, "Exams:" + bsuirSchedule.getExams(message.chat.id))
         bot.register_next_step_handler(message, scheduleNext)
     elif message.text == "BACK":
         msg = bot.send_message(message.chat.id, "Going back...")
