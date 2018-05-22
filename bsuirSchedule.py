@@ -101,7 +101,7 @@ def getExams(userId):
                     if subject["employee"] != []:
                         schedule += subject["lessonTime"] + " " + \
                                     subject["subject"] + " " + \
-                                    subject["auditory"] + "\n" + \
+                                    subject["auditory"][0] + "\n" + \
                                     subject["employee"][0]["fio"] + "\n"
                     else:
                         schedule += subject["lessonTime"] + " " + \
