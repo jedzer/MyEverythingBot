@@ -63,7 +63,7 @@ def getOneDaySchedule(userId):
 
 def getOneWeekSchedule(userId, week):
     if usersGroupNumber.get(userId):
-        if datetime.datetime.today().weekday() == 7:
+        if datetime.datetime.today().weekday() == 7 - 1:
             week += 1
         group = getFileFromAPI("https://students.bsuir.by/api/v1/studentGroup/schedule.json?studentGroup=" + usersGroupNumber[userId])
         groupJSON = group.json()
@@ -91,7 +91,7 @@ def getCurrentWeekSchedule(userId):
     return getOneWeekSchedule(userId, getWeek())
 
 def getExams(userId):
-    if checkIfGroupExists(usersGroupNumber[userId]):
+    if usersGroupNumber.get(userId):
         group = getFileFromAPI("https://students.bsuir.by/api/v1/studentGroup/schedule.json?studentGroup=" + usersGroupNumber[userId])
         groupJSON = group.json()
         schedule = ""
@@ -107,4 +107,6 @@ def getExams(userId):
                         schedule += subject["lessonTime"] + " " + \
                                     subject["subject"] + " " + \
                                     subject["auditory"] + "\n"
-    return "ERROR. No group: " + usersGroupNumber[userId]
+        return schedule
+    else:
+        return "ENTER GROUP FIRST!"

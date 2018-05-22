@@ -72,7 +72,7 @@ def start(message):
 def schedule(message):
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
     markup.row('Current schedule', "This week")
-    markup.row('BACK ', 'Set group')
+    markup.row('BACK ', "Exams", 'Set group')
     msg = bot.send_message(message.chat.id, "BSUIR Schedule", reply_markup=markup)
     bot.register_next_step_handler(msg, scheduleNext)
 
@@ -86,7 +86,9 @@ def scheduleNext(message):
     elif message.text == "This week":
         bot.send_message(message.chat.id, "This week:" + bsuirSchedule.getCurrentWeekSchedule(message.chat.id))
         bot.register_next_step_handler(message, scheduleNext)
-
+    elif message.text == "Exams":
+        bot.send_message(message.chat.id, "Exams:" + bsuirSchedule.getCurrentWeekSchedule(message.chat.id))
+        bot.register_next_step_handler(message, scheduleNext)
     elif message.text == "BACK":
         msg = bot.send_message(message.chat.id, "Going back...")
         start(message)
