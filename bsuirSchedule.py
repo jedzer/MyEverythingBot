@@ -41,7 +41,7 @@ def getOneDaySchedule(userId):
             groupJSON = group.json()
             schedule = ""
             for group in groupJSON["schedules"]:
-                if daysOfTheWeek[group["weekDay"]] == datetime.datetime.today().weekday():
+                if daysOfTheWeek[group["weekDay"]] == datetime.datetime.today().weekday() + 1:
                     schedule += "\n--" + group["weekDay"] + "--\n"
                     for subject in group["schedule"]:
                         for weekNumber in subject["weekNumber"]:
