@@ -9,6 +9,10 @@ import time
 import reddit
 import usersGroup
 import bsuirSchedule
+import datetime
+
+
+print(datetime.datetime.today())
 
 bot = telebot.TeleBot(constants.token)
 print(bot.get_me())

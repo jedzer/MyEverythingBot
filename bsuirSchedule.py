@@ -1,9 +1,22 @@
 import requests
 import datetime
+import sqlite3
 
 usersGroupNumber = {}
 userSchedule = {}
 daysOfTheWeek = {"Понедельник":1, "Вторник":2, "Среда":3, "Четверг":4, "Пятница":5, "Суббота":6}
+
+
+def init():
+    pass
+
+
+def updateScheduleDatabase():
+    pass
+
+
+def updateGroupDatabase():
+    pass
 
 
 def getFileFromAPI(url):
