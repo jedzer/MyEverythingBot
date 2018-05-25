@@ -3,7 +3,6 @@ import datetime
 import usersGroup
 import json
 import time
-import threading
 from threading import Thread
 
 daysOfTheWeek = {"Понедельник":1, "Вторник":2, "Среда":3, "Четверг":4, "Пятница":5, "Суббота":6}
@@ -19,7 +18,6 @@ def updateDatabase():
         if lastUpdate < datetime.datetime.today().day:
             usersGroup.update()
             lastUpdate = datetime.datetime.today().day
-            time.sleep(600)
 
 
 def getFileFromAPI(url):

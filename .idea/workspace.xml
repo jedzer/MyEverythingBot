@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a6bbc96-d8df-464d-89f8-97d287bc98e6" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bsuirSchedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/bsuirSchedule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/groups.db" beforeDir="false" afterPath="$PROJECT_DIR$/groups.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,8 +19,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="541">
-              <caret line="156" selection-start-line="156" selection-end-line="156" />
+            <state relative-caret-position="222">
+              <caret line="159" column="40" selection-start-line="159" selection-start-column="40" selection-end-line="159" selection-end-column="40" />
               <folding>
                 <element signature="e#47#61#0" expanded="true" />
               </folding>
@@ -29,7 +31,7 @@
       <file leaf-file-name="usersGroup.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/usersGroup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
+            <state relative-caret-position="1190">
               <caret line="70" selection-start-line="70" selection-end-line="70" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
@@ -38,41 +40,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/telebot/util.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1071">
-              <caret line="70" selection-start-line="70" selection-end-line="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="traceback.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Python36/Lib/traceback.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8364">
-              <caret line="495" selection-start-line="495" selection-end-line="495" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="bsuirSchedule.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bsuirSchedule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="21" column="27" lean-forward="true" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+            <state relative-caret-position="51">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/telebot/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7973">
-              <caret line="477" selection-start-line="477" selection-end-line="477" />
             </state>
           </provider>
         </entry>
@@ -115,8 +90,8 @@
         <option value="$PROJECT_DIR$/requests.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/usersGroup.py" />
-        <option value="$PROJECT_DIR$/bsuirSchedule.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/bsuirSchedule.py" />
       </list>
     </option>
   </component>
@@ -423,12 +398,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/bsuirSchedule.py</url>
-          <line>83</line>
+          <line>81</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/bsuirSchedule.py</url>
-          <line>57</line>
+          <line>55</line>
           <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -438,7 +413,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/bsuirSchedule.py</url>
-          <line>41</line>
+          <line>39</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
       </breakpoints>
@@ -723,23 +698,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="159" column="40" selection-start-line="159" selection-start-column="40" selection-end-line="159" selection-end-column="40" />
+          <folding>
+            <element signature="e#47#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/Python36/Lib/traceback.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8364">
+        <state relative-caret-position="307">
           <caret line="495" selection-start-line="495" selection-end-line="495" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/telebot/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
+        <state relative-caret-position="307">
           <caret line="70" selection-start-line="70" selection-end-line="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/usersGroup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
+        <state relative-caret-position="1190">
           <caret line="70" selection-start-line="70" selection-end-line="70" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
@@ -747,20 +732,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="156" selection-start-line="156" selection-end-line="156" />
-          <folding>
-            <element signature="e#47#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bsuirSchedule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="21" column="27" lean-forward="true" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+        <state relative-caret-position="51">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

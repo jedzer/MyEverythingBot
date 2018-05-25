@@ -6,6 +6,7 @@ import re
 import constants
 import random
 import time
+from threading import Thread
 import reddit
 import usersGroup
 import bsuirSchedule
@@ -155,5 +156,5 @@ def handle_text(message):
         bot.send_message(message.chat.id, "Sorry🙈, no such command!")
 
 
-bsuirSchedule.init()
-bot.polling(none_stop=True, interval=0, timeout=5)
+Thread(target=bsuirSchedule.init).start()
+Thread(target=bot.polling(none_stop=True, interval=0, timeout=5)).start()
