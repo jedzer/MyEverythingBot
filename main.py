@@ -155,4 +155,5 @@ def handle_text(message):
         bot.send_message(message.chat.id, "Sorry🙈, no such command!")
 
 
+bsuirSchedule.init()
 bot.polling(none_stop=True, interval=0, timeout=5)
