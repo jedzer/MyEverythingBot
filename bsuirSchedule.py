@@ -8,10 +8,6 @@ from threading import Thread
 daysOfTheWeek = {"Понедельник":1, "Вторник":2, "Среда":3, "Четверг":4, "Пятница":5, "Суббота":6}
 
 
-def init():
-    Thread(target=updateDatabase).start()
-
-
 def updateDatabase():
     lastUpdate = datetime.datetime.today().day - 1
     while True:
