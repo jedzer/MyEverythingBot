@@ -5,14 +5,6 @@ import requests
 def update():
     connection = sqlite3.connect("groups.db")
     cursor = connection.cursor()
-    # cursor.execute("""
-    #                 SELECT id, groupName, schedule
-    #                 FROM groups
-    #                 ORDER BY groupName
-    #                 LIMIT 10
-    # """)
-    # result1 = cursor.fetchall()
-    # print(result1)
     groups = requests.get("https://students.bsuir.by/api/v1/groups", headers={'User-agent': 'your bot 0.1'})
     groupsJSON = groups.json()
     cursor.execute("""DELETE FROM groups""")

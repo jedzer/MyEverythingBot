@@ -10,8 +10,9 @@ daysOfTheWeek = {"Понедельник":1, "Вторник":2, "Среда":3,
 
 def updateDatabase():
     lastUpdate = datetime.datetime.today().day - 1
+    time = datetime.datetime(2018, 5, 26, 1, 1, 00).hour + 4
     while True:
-        if lastUpdate < datetime.datetime.today().day:
+        if lastUpdate < datetime.datetime.today().day and time == datetime.datetime.today().hour + 4:
             usersGroup.update()
             lastUpdate = datetime.datetime.today().day
 
