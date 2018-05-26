@@ -104,19 +104,17 @@ def setGroup(message):
 
 
 
+@bot.message_handler(commands=["forceupdate"])
+def handler(message):
+    if message.chat.id == 224329635:
+        usersGroup.update()
+        bot.send_message(message.chat.id, "UPDATED")
+
+
+
 @bot.message_handler(commands=['changelog'])
 def handle_text(message):
     bot.send_message(message.chat.id, constants.changeLogg)
-
-
-@bot.message_handler(commands=['get'])
-def handle_text(message):
-    bot.send_message(message.chat.id, usersGroup.getJSON(usersGroup.get(message.chat.id)[0]))
-
-
-@bot.message_handler(commands=['set'])
-def handle_text(message):
-    bot.send_message(message.chat.id, usersGroup.setGroup(message.chat.id, 753504))
 
 
 @bot.message_handler(commands=['flipcoin'])
