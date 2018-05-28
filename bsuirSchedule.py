@@ -2,19 +2,40 @@ import requests
 import datetime
 import usersGroup
 import json
-import time
-from threading import Thread
+import sqlite3
 
-daysOfTheWeek = {"Понедельник":1, "Вторник":2, "Среда":3, "Четверг":4, "Пятница":5, "Суббота":6}
+
+daysOfTheWeek = {
+    "Понедельник": 1,
+    "Вторник": 2,
+    "Среда": 3,
+    "Четверг": 4,
+    "Пятница": 5,
+    "Суббота": 6
+}
+
+databaseIsUsed = False
 
 
 def updateDatabase():
-    lastUpdate = datetime.datetime.today().day - 1
+    while databaseIsUsed:
+        pass
+    databaseIsUsed = True
+    connection = sqlite3.connect("groups.db")
+    cursor = connection.cursor()
+    cursor.execute("""
+        SELECT date
+        FROM lastUpdate
+    """)
+    lastUpdate = cursor.fetchone()
+    cursor.execute("""DELETE FROM groups""")
+    cursor.execute("""
+        INSERT INTO lastUpdate VALUES (?)
+    """, (datetime.datetime.today().day,))
     time = datetime.datetime(2018, 5, 26, 1, 1, 00).hour + 4
-    while True:
-        if lastUpdate < datetime.datetime.today().day and time == datetime.datetime.today().hour + 4:
-            usersGroup.update()
-            lastUpdate = datetime.datetime.today().day
+    if lastUpdate[0] < datetime.datetime.today().day and time == datetime.datetime.today().hour + 4 or lastUpdate[0] > 29:
+        usersGroup.update()
+    databaseIsUsed = False
 
 
 def getFileFromAPI(url):
@@ -34,6 +55,9 @@ def getWeek():
 
 
 def getOneDaySchedule(userId):
+    while databaseIsUsed:
+        pass
+    databaseIsUsed = True
     if usersGroup.get(userId):
         group = usersGroup.getJSON(usersGroup.get(userId))
         groupJSON = json.loads(group)
@@ -44,12 +68,17 @@ def getOneDaySchedule(userId):
                         schedules["subject"] + " (" + \
                         schedules["lessonType"] + ")\n" + \
                         schedules["employee"][0]["fio"] + "\n"
+        databaseIsUsed = False
         return schedule
+    databaseIsUsed = False
     return "ERROR"
 
 
 
 def getOneWeekSchedule(userId, week):
+    while databaseIsUsed:
+        pass
+    databaseIsUsed = True
     if usersGroup.get(userId):
         if datetime.datetime.today().weekday() == 7 - 1:
             week += 1
@@ -70,8 +99,10 @@ def getOneWeekSchedule(userId, week):
                         else:
                             schedule += (subject["lessonTime"] + " " +
                                         subject["subject"] + "\n")
+        databaseIsUsed = False
         return schedule
     else:
+        databaseIsUsed = False
         return "ENTER GROUP FIRST!"
 
 
@@ -79,6 +110,9 @@ def getCurrentWeekSchedule(userId):
     return getOneWeekSchedule(userId, getWeek())
 
 def getExams(userId):
+    while databaseIsUsed:
+        pass
+    databaseIsUsed = True
     if usersGroup.get(userId):
         group = usersGroup.getJSON(usersGroup.get(userId))
         groupJSON = json.loads(group)
@@ -95,6 +129,8 @@ def getExams(userId):
                         schedule += subject["lessonTime"] + " " + \
                                     subject["subject"] + " " + \
                                     subject["auditory"] + "\n"
+        databaseIsUsed = False
         return schedule
     else:
+        databaseIsUsed = False
         return "ENTER GROUP FIRST!"
