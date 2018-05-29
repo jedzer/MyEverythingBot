@@ -18,6 +18,7 @@ databaseIsUsed = False
 
 
 def updateDatabase():
+    global databaseIsUsed
     while databaseIsUsed:
         pass
     databaseIsUsed = True
@@ -76,6 +77,7 @@ def getOneDaySchedule(userId):
 
 
 def getOneWeekSchedule(userId, week):
+    global databaseIsUsed
     while databaseIsUsed:
         pass
     databaseIsUsed = True
@@ -110,6 +112,7 @@ def getCurrentWeekSchedule(userId):
     return getOneWeekSchedule(userId, getWeek())
 
 def getExams(userId):
+    global databaseIsUsed
     while databaseIsUsed:
         pass
     databaseIsUsed = True

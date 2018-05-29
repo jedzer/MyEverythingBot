@@ -20,10 +20,13 @@ YourMomGayArray = ["Ur mum gay",
 heads = "Heads fell out"
 tails = "Tails fell out"
 
-help = "/help - Show all commands\n" + \
-       "/start - Start the bot\n" + \
-       "/flipcoin - Flip the coin. Get tails or heads\n" + \
-       "/bsuirschedule - Get your groups daily (or weekly) schedule\n" + \
-       "/meme - Sends a meme from /r/dankmemes\n" + \
-       "/changelog - Tells what was added in a last update\n" + \
-       "/stop - Stop the bot (not permanently)\n"
+help = "/help - Show all commands and description for them\n" + \
+        "/start - Start the bot and show main menu\n" + \
+        "/flipcoin - Flip the coin. Get tails or heads\n" + \
+        "/bsuirschedule - Get your groups daily (or weekly) schedule\n" + \
+        "/meme - Sends a meme from /r/dankmemes\n" + \
+        "/kittens - Sends a nice pussy \n" + \
+        "/reddit - Sends a post from reddit \n" + \
+        "/stop - Close main menu\n"
+
+
