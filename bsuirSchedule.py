@@ -56,6 +56,7 @@ def getWeek():
 
 
 def getOneDaySchedule(userId):
+    global databaseIsUsed
     while databaseIsUsed:
         pass
     databaseIsUsed = True
