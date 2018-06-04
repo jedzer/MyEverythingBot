@@ -154,6 +154,4 @@ def handle_text(message):
         bot.send_message(message.chat.id, "Sorry🙈, no such command!")
 
 
-while True:
-    Thread(target=bsuirSchedule.updateDatabase).start()
-    Thread(target=bot.polling(none_stop=True, interval=0, timeout=5)).start()
+bot.polling(none_stop=True, interval=0, timeout=5)
